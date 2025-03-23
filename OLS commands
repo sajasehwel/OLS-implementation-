@@ -1,0 +1,17 @@
+--After I register OLS in sys_dba 
+--create create SEC_MGR user to manage the OLS policy 
+GRANT CREATE SESSION, RESOURCE TO SEC_MGR  
+IDENTIFIED BY "Sec@123";  
+GRANT LBAC_DBA TO SEC_MGR; 
+GRANT EXECUTE ON sa_sysdba TO SEC_MGR; 
+GRANT SELECT ON dba_sa_policies TO SEC_MGR;  
+
+--create EMP_POL policy
+BEGIN  
+sa_sysdba.create_policy (  
+policy_name => 'EMP_POL');  
+END;  
+/ 
+--to show the policies 
+SELECT policy_name, column_name, status  
+FROM dba_sa_policies; 
