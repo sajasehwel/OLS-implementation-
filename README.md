@@ -22,8 +22,10 @@ As define in OLS commands file
 levels ,Compartments and groups. (All commands in OLS commands file)
 
 ### 4️⃣ Create OLS Labels 
-Run add_ols_labels.sql 
-
+```sql
+--Run add_ols_labels.sql
+@'add_ols_labels.sql';
+```
 ### 5️⃣ Apply OLS Policy to a Table
 ```sql
 BEGIN  
@@ -36,8 +38,10 @@ END;
 /  
 ```
 ### 6️⃣ Add data labels for policy column
-Run update_data_labels.sql file
-
+```sql
+--Run update_data_labels.sql file
+@'update_data_labels.sql';
+```
 ### 7️⃣ CREATE users for test and assign OLS Labels to them
 ```sql
 --ACCESS ALL EMPLOYEES 
