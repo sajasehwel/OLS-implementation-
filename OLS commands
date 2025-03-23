@@ -15,3 +15,148 @@ END;
 --to show the policies 
 SELECT policy_name, column_name, status  
 FROM dba_sa_policies; 
+
+--Create Label Components [As SYS]
+--OLS levels
+BEGIN   
+sa_components.create_level  
+(policy_name => 'EMP_POL',  
+long_name => 'TOP SECRET',  
+short_name => 'TS',  
+level_num => 9000);  
+END;  
+/  
+BEGIN  
+sa_components.create_level  
+(policy_name => 'EMP_POL',  
+long_name => 'SECRET',  
+short_name => 'S',  
+level_num => 8000);  
+END;  
+/ 
+BEGIN  
+sa_components.create_level  
+(policy_name => 'EMP_POL',  
+long_name => 'RESTRICTED',  
+short_name => 'R',  
+level_num => 7000);  
+END;  
+/ 
+BEGIN  
+sa_components.create_level  
+(policy_name => 'EMP_POL',  
+long_name => 'UNCLASSIFIED',  
+short_name => 'U',  
+level_num => 6000);  
+END;  
+/
+
+--show OLS levels
+SELECT * FROM dba_sa_levels 
+WHERE policy_name = 'EMP_POL' 
+ORDER BY level_num DESC;
+
+
+-- OLS Compartments 
+
+BEGIN  
+sa_components.create_compartment  
+(policy_name => 'EMP_POL',  
+long_name => 'Singapore',  
+short_name => 'Si',  
+comp_num => 1000);  
+END;  
+/ 
+BEGIN  
+sa_components.create_compartment  
+(policy_name => 'EMP_POL',  
+long_name => 'France',  
+short_name => 'Fr',  
+comp_num => 2000);  
+END;  
+/ 
+--to show ols compartments
+SELECT * FROM dba_sa_compartments 
+WHERE policy_name = 'EMP_POL' 
+ORDER BY comp_num;
+
+
+
+--OLS groups
+BEGIN  
+sa_components.create_group  
+(policy_name => 'EMP_POL',  
+long_name => 'President ',  
+short_name => 'PR',  
+group_num => 1000);  
+END;  
+/ 
+BEGIN  
+sa_components.create_group  
+(policy_name => 'EMP_POL',  
+long_name => 'Finance',  
+short_name => 'FIN',  
+group_num => 2000,  
+parent_name => 'PR');  
+END;  
+/ 
+BEGIN  
+sa_components.create_group  
+(policy_name => 'EMP_POL',  
+long_name => 'IT',  
+short_name => 'IT',  
+group_num => 3000,  
+parent_name => 'PR');  
+END;  
+/ 
+BEGIN  
+sa_components.create_group  
+(policy_name => 'EMP_POL',  
+long_name => 'HR',  
+short_name => 'HR',  
+group_num => 4000,  
+parent_name => 'PR');  
+END;  
+/ 
+BEGIN  
+sa_components.create_group  
+(policy_name => 'EMP_POL',  
+long_name => 'SALES',  
+short_name => 'SA',  
+group_num => 2010,  
+parent_name => 'FIN');  
+END;  
+/ 
+BEGIN  
+sa_components.create_group  
+(policy_name => 'EMP_POL',  
+long_name => 'Marketing',  
+short_name => 'MA',  
+group_num => 2020,  
+parent_name => 'FIN');  
+END;  
+/ 
+BEGIN  
+sa_components.create_group  
+(policy_name => 'EMP_POL',  
+long_name => 'Support',  
+short_name => 'SU',  
+group_num => 3010,  
+parent_name => 'IT');  
+END;  
+/ 
+BEGIN  
+sa_components.create_group  
+(policy_name => 'EMP_POL',  
+long_name => 'Development',  
+short_name => 'DEV',  
+group_num => 3020,  
+parent_name => 'IT');  
+END;  
+/
+
+--to show ols groups
+SELECT * FROM DBA_SA_GROUPS 
+ORDER BY group_num;
+
+
